@@ -1,0 +1,87 @@
+﻿@model Model.Profesor
+@{
+    ViewBag.Title = (Model.Id > 0 ? Model.Nombre_Profesor : "Nuevo Registro");
+    List<Model.Materia> materias = ViewBag.Materias;
+}
+
+<ol class="breadcrumb">
+    <li><a href="/Home/ListaProfesores">ListaProfesores</a></li>
+    <li><a class="active"> @(Model.Id > 0 ? Model.Nombre_Profesor : "Nuevo Registro")</a></li>
+</ol>
+
+@using (Html.BeginForm("GuardarProfesor", "Home", FormMethod.Post, new { id = "FrmProfesor" }))
+{
+    @Html.HiddenFor(x => x.Id)
+    <div class="panel-default">
+        <div class="panel-heading">
+            Informacion Personal
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(x => x.Nombre_Profesor)
+                @Html.TextBoxFor(x => x.Nombre_Profesor, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Nombre_Profesor, null, new { @class = "label label-danger" })
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="panel-default">
+        <div class="panel-heading">
+            Asignaturas
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                @foreach (var m in materias)
+                {
+                    var CursoTomado = false;
+                    foreach (var m2 in Model.Materias)
+                    {
+                        if (m.Id == m2.Id)
+                        {
+                            CursoTomado = true;
+                            break;
+                        }
+                    }
+                    <li class="list-group-item">
+                        <label><input type="checkbox" @(CursoTomado ? "checked" : "") name="ChekMateriaAsignada" value="@m.Id" /> @m.Nombre_Materia</label>
+                    </li>
+                }
+            </ul>
+            @Html.ValidationMessage("materias-elegidas", new { @class = "label label-danger", id = "materias-validacion" })
+        </div>
+    </div>
+
+    <div class="text-right">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+}
+
+<script>
+    $("#FrmProfesor").submit(function () {
+            var form = $(this);
+
+            if (form.validate()) {
+                form.ajaxSubmit({
+                    dataType: 'JSON',
+                    type: 'POST',
+                    url: form.attr('action'),
+                    success: function (r) {
+                        if (r.respuesta) {
+                            window.location.href = r.redirect;
+                        }
+                        else {
+                            $("#materias-validacion").text(r.error)
+                                                    .show();
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+
+            return false;
+        })
+</script>

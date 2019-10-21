@@ -1,0 +1,45 @@
+﻿@model Model.Alumno
+@{
+    ViewBag.Title = "VerAlmno";
+}
+
+<div class="row">
+    <ol class="breadcrumb">
+        <li><a href="/">Alumnos</a></li>
+        <li><a class="active"> @(Model.Nombres)</a></li>
+    </ol>
+
+    <div class="panel-default">
+        <div class="panel-heading">
+            Informacion Personal
+        </div>
+        <div class="panel-body">
+            <dl class="dl-horizontal">
+                <dt>Nombre</dt>
+                <dd>@Model.Nombres</dd>
+                <dt>Cedula</dt>
+                <dd>@Model.Documento</dd>
+                <dt>Telefono</dt>
+                <dd>@Model.Telefono</dd>
+            </dl>
+        </div>
+    </div>
+
+
+    <div class="panel-default">
+            <div class="panel-heading">
+                Asignaturas Seleccionadas
+            </div>
+            <div class="panel-body">
+                <ul class="list-group">
+                    @foreach (var c in Model.Materias)
+                    {
+                        <li class="list-group-item">
+                            @c.Nombre_Materia
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+
+</div>

@@ -1,0 +1,96 @@
+﻿@model Model.Alumno
+@{
+    ViewBag.Title = (Model.Id > 0 ? Model.Nombres : "Nuevo Registro");
+    List<Model.Materia> materias = ViewBag.Materias;
+}
+
+<ol class="breadcrumb">
+    <li><a href="/">Alumnos</a></li>
+    <li><a class="active"> @(Model.Id > 0 ? Model.Nombres : "Nuevo Registro")</a></li>
+</ol>
+
+@using (Html.BeginForm("GuardarAlumno", "Home", FormMethod.Post, new { id = "FrmAlumno" }))
+{
+    @Html.HiddenFor(x => x.Id)
+    <div class="panel-default">
+        <div class="panel-heading">
+            Informacion Personal
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                @Html.LabelFor(x => x.Nombres)
+                @Html.TextBoxFor(x => x.Nombres, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Nombres, null, new { @class = "label label-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Documento)
+                @Html.TextBoxFor(x => x.Documento, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Documento, null, new { @class = "label label-danger" })
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(x => x.Telefono)
+                @Html.TextBoxFor(x => x.Telefono, new { @class = "form-control" })
+                @Html.ValidationMessageFor(x => x.Telefono, null, new { @class = "label label-danger" })
+            </div>
+        </div>
+    </div>
+
+
+    <div class="panel-default">
+        <div class="panel-heading">
+            Asignaturas
+        </div>
+        <div class="panel-body">
+            <ul class="list-group">
+                @foreach (var m in materias)
+                {
+                    var CursoTomado = false;
+                    foreach (var m2 in Model.Materias)
+                    {
+                        if (m.Id == m2.Id)
+                        {
+                            CursoTomado = true;
+                            break;
+                        }
+                    }
+                    <li class="list-group-item">
+                        <label><input type="checkbox" @(CursoTomado ? "checked" : "") name="ChekMateriaTomada" value="@m.Id" /> @m.Nombre_Materia</label>
+                    </li>
+                }
+            </ul>
+            @Html.ValidationMessage("materias-elegidas", new { @class ="label label-danger", id="materias-validacion"})
+        </div>
+    </div>
+
+    <div class="text-right">
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+}
+
+<script>
+    $("#FrmAlumno").submit(function () {
+            var form = $(this);
+
+            if (form.validate()) {
+                form.ajaxSubmit({
+                    dataType: 'JSON',
+                    type: 'POST',
+                    url: form.attr('action'),
+                    success: function (r) {
+                        if (r.respuesta) {
+                            window.location.href = r.redirect;
+                        }
+                        else {
+                            $("#materias-validacion").text(r.error)
+                                                    .show();
+                        }
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+
+            return false;
+        })
+</script>

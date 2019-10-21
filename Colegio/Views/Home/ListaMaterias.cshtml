@@ -1,0 +1,70 @@
+﻿@model Model.Materia
+
+
+<div class="row">
+    <div class="well well-sm">
+        <div class="row">
+            @using (Html.BeginForm("GuardarMateria", "Home", FormMethod.Post, new { id = "FrmMateria" }))
+            {
+                <div class="panel-default">
+                    <div class="panel-heading">
+                        Informacion Personal
+                    </div>
+                    <div class="panel-body">
+                        <div class="form-group">
+                            @Html.LabelFor(x => x.Nombre_Materia)
+                            @Html.TextBoxFor(x => x.Nombre_Materia, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(x => x.Nombre_Materia, null, new { @class = "label label-danger" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-right">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                </div>
+            }
+        </div>
+    </div>
+
+    @*<table class="table">
+        <thead>
+            <tr>
+                <th>Materias</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                List<Model.Materia> Model = ViewBag.Materias;
+            }
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.Nombre_Materia</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>*@
+
+</div>
+
+<script>
+    $("#FrmMateria").submit(function () {
+            var form = $(this);
+
+            if (form.validate()) {
+                form.ajaxSubmit({
+                    dataType: 'JSON',
+                    type: 'POST',
+                    url: form.attr('action'),
+                    success: function (r) {
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    }
+                });
+            }
+
+            return false;
+        })
+</script>

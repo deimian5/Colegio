@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Colegio", "Colegio\Colegio.csproj", "{A11A125A-18FF-44FD-BE34-960849F2F4DE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Model", "Model\Model.csproj", "{0AC82709-59C2-4013-89CA-7829C757475D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A11A125A-18FF-44FD-BE34-960849F2F4DE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A11A125A-18FF-44FD-BE34-960849F2F4DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A11A125A-18FF-44FD-BE34-960849F2F4DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A11A125A-18FF-44FD-BE34-960849F2F4DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0AC82709-59C2-4013-89CA-7829C757475D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0AC82709-59C2-4013-89CA-7829C757475D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0AC82709-59C2-4013-89CA-7829C757475D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0AC82709-59C2-4013-89CA-7829C757475D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

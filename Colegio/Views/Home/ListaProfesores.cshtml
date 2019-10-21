@@ -1,0 +1,38 @@
+﻿@model List<Model.Profesor>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row">
+    <div class="well well-sm">
+        <div class="row">
+            <div class="col-xs-10">
+                <h2>Lista de Profesores</h2>
+            </div>
+            <div class="col-xs-2 text-right">
+                <a class="btn btn-primary" href="~/home/AgregarProfesor">Nuevo registro</a>
+            </div>
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Nombres</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var a in Model)
+            {
+                <tr>
+                    <td>@a.Nombre_Profesor</td>
+                    <td class="text-right">
+                        <a class="btn btn-default btn-success" href="/home/VerProfesor/@a.Id">Visualizar</a>
+                        <a class="btn btn-default btn-danger" href="/home/EliminarProfesor/@a.Id">Retirar</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
